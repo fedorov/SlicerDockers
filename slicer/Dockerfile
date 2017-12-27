@@ -16,21 +16,21 @@ RUN SLICER_URL="http://download.slicer.org/bitstream/738960" && \
   mv /tmp/Slicer* /opt/slicer
 
 # copy /opt after extraction slicer (/opt/slicer is extracted tar)
-COPY /etc /etc
-COPY /opt /opt
-COPY /usr /usr
+#COPY /etc /etc
+#COPY /opt /opt
+#COPY /usr /usr
 
 
 # See http://na-mic.org/Mantis/view.php?id=4015
-RUN su researcher -c "mkdir /home/researcher/Documents"
-COPY /home/researcher/Documents /home/researcher/Documents
-RUN chown -R researcher:researcher /home/researcher/Documents
+#RUN su researcher -c "mkdir /home/researcher/Documents"
+#COPY /home/researcher/Documents /home/researcher/Documents
+#RUN chown -R researcher:researcher /home/researcher/Documents
 
-COPY /home/researcher/.config /home/researcher/.config
-RUN chown -R researcher:researcher /home/researcher/.config
+#COPY /home/researcher/.config /home/researcher/.config
+#RUN chown -R researcher:researcher /home/researcher/.config
 
-RUN LNUM=$(sed -n '/launcher_item_app/=' /etc/tint2/panel.tint2rc | head -1) && \
-  sed -i "${LNUM}ilauncher_item_app = /opt/slicer/slicer.desktop" /etc/tint2/panel.tint2rc
+#RUN LNUM=$(sed -n '/launcher_item_app/=' /etc/tint2/panel.tint2rc | head -1) && \
+#  sed -i "${LNUM}ilauncher_item_app = /opt/slicer/slicer.desktop" /etc/tint2/panel.tint2rc
 
 # Note that slicer is started automatically at login from /etc/skel/.xinitrc
 # it will run whatever is in the user's home directory .slicerrc.py, so any
