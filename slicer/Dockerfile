@@ -2,7 +2,7 @@
 # (based on https://github.com/dit4c/dockerfile-dit4c-container-slicer)
 
 FROM stevepieper/x11
-MAINTAINER pieper@isomics.com
+MAINTAINER andrey.fedorov@gmail.com
 
 RUN apt-get install -y libglu1-mesa
 
@@ -10,9 +10,10 @@ RUN apt-get install -y libglu1-mesa
 # Slicer 4.6.2 http://download.slicer.org/bitstream/561384"
 # Slicer 4.8.0 http://download.slicer.org/bitstream/561384"
 # Slicer 4.8.1 http://download.slicer.org/bitstream/738960"
+# Slicer 4.10.1 http://download.slicer.org/bitstream/944596
 
-# Slicer 4.10.1
-RUN SLICER_URL="http://download.slicer.org/bitstream/944596" && \
+# Slicer 4.10.2
+RUN SLICER_URL="https://download.slicer.org/bitstream/1023242" && \
   curl -v -s -L $SLICER_URL | tar xz -C /tmp && \
   mv /tmp/Slicer* /opt/slicer
 
@@ -27,8 +28,8 @@ RUN su researcher -c "mkdir /home/researcher/Documents"
 COPY /home/researcher/Documents /home/researcher/Documents
 RUN chown -R researcher:researcher /home/researcher/Documents
 
-COPY /home/researcher/.config /home/researcher/.config
-RUN chown -R researcher:researcher /home/researcher/.config
+#COPY /home/researcher/.config /home/researcher/.config
+#RUN chown -R researcher:researcher /home/researcher/.config
 
 RUN LNUM=$(sed -n '/launcher_item_app/=' /etc/tint2/panel.tint2rc | head -1) && \
   sed -i "${LNUM}ilauncher_item_app = /opt/slicer/slicer.desktop" /etc/tint2/panel.tint2rc
